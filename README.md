@@ -3,4 +3,4 @@ zotero_installation
 
 installation script for zotero dataserver
 
-It automates the installation steps provided by sualk in his github repository for the zotero data server. New versions will focus on installing the vanilla zotero dataserver.
+Taking Panzerkampfwagen and sualk's contributions and this fork of Dwarf-Planet-Project is an attempt to merge the efforts, clean up the installer and test under Debian Jessie (8).
