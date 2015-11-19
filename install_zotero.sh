@@ -208,7 +208,7 @@ echo "Load in schema on id server"
 cat ids.sql | $DB zotero_ids
 
 echo "Load in www schema"
-$DB zotero_www < $(cur_dir)www.sql
+$DB zotero_www < "${cur_dir}/www.sql"
 
 echo "Setup roleIDs"
 echo "INSERT INTO LUM_ROLE VALUES ('Deleted', 1);" | $DB zotero_www

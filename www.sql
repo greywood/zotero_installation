@@ -19,6 +19,15 @@
 --  
 --  ***** END LICENSE BLOCK *****
 
+CREATE TABLE `users` (
+`userID` mediumint unsigned auto_increment NULL,
+`username` varchar(40) NOT NULL,
+`password` char(61) NOT NULL,
+PRIMARY KEY (`username`, `userID`),
+  UNIQUE KEY `username` (`username`),
+  UNIQUE KEY `userID` (`userID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE `sessions` (
 `userID` mediumint unsigned NOT NULL,
 `id` int(10) unsigned NOT NULL,
@@ -37,7 +46,7 @@ CREATE TABLE `users_email` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `storage_institutions` (
-`storageQuota` mediumintt(8) unsigned NOT NULL,
+`storageQuota` mediumint(8) unsigned NOT NULL,
 `domain` varchar(255) NOT NULL,
 `institutionID` int(10) unsigned NOT NULL,
 PRIMARY KEY (`institutionID`)
@@ -50,15 +59,6 @@ CREATE TABLE `storage_institution_email` (
   FOREIGN KEY (`institutionID`) REFERENCES `storage_institutions` (`institutionID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `users` (
-`userID` mediumint unsigned auto_increment NULL,
-`username` varchar(40) NOT NULL,
-`password` char(61) NOT NULL,
-PRIMARY KEY (`username`, `userID`),
-  UNIQUE KEY `username` (`username`),
-  UNIQUE KEY `userID` (`userID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 CREATE TABLE `users_meta` (
 `userID` mediumint unsigned NOT NULL,
 `metaKey` enum('profile_realname', 'publishLibrary', 'publishNotes') NOT NULL,
@@ -66,16 +66,16 @@ CREATE TABLE `users_meta` (
 FOREIGN KEY (`userID`) REFERENCES `users` (`userID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8  COLLATE=utf8_general_ci;
 
-CREATE TABLE `LUM_User` (
-`UserID` int(10) unsigned NOT NULL,
-`RoleID` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`UserID`, `RoleID`),
-  FOREIGN KEY (`RoleID`) REFERENCES `LUM_Role` (`RoleID`),
-  FOREIGN KEY (`UserID`) REFERENCES `users` (`userID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 CREATE TABLE `LUM_Role` (
 `RoleID` int(10) unsigned NOT NULL,
 `Name` enum('Deleted','Invalid','Valid') NOT NULL, 
 PRIMARY KEY (`RoleID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `LUM_User` (
+`UserID` mediumint unsigned NOT NULL,
+`RoleID` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`UserID`, `RoleID`),
+  FOREIGN KEY (`RoleID`) REFERENCES `LUM_Role` (`RoleID`),
+  FOREIGN KEY (`UserID`) REFERENCES `users` (`userID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
